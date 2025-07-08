@@ -1,0 +1,66 @@
+package com.example.studentregistration;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+
+import java.time.LocalDate;
+
+@SpringBootApplication
+@Controller
+public class StudentRegistrationApp extends SpringBootServletInitializer {
+
+    public static void main(String[] args) {
+        SpringApplication.run(StudentRegistrationApp.class, args);
+    }
+
+    // Show form
+    @GetMapping("/")
+    public String showForm(Model model) {
+        model.addAttribute("student", new Student());
+        return "form";
+    }
+
+    // Handle form submit
+    @PostMapping("/register")
+    public String register(@ModelAttribute Student student, Model model) {
+        model.addAttribute("student", student);
+        return "success";
+    }
+
+    // Student model (can be a separate file ideally)
+    public static class Student {
+        private String firstName;
+        private String lastName;
+        private String email;
+        private String phone;
+        private String gender;
+        private LocalDate dob;
+        private String address;
+
+        // Getters and setters
+        public String getFirstName() { return firstName; }
+        public void setFirstName(String firstName) { this.firstName = firstName; }
+
+        public String getLastName() { return lastName; }
+        public void setLastName(String lastName) { this.lastName = lastName; }
+
+        public String getEmail() { return email; }
+        public void setEmail(String email) { this.email = email; }
+
+        public String getPhone() { return phone; }
+        public void setPhone(String phone) { this.phone = phone; }
+
+        public String getGender() { return gender; }
+        public void setGender(String gender) { this.gender = gender; }
+
+        public LocalDate getDob() { return dob; }
+        public void setDob(LocalDate dob) { this.dob = dob; }
+
+        public String getAddress() { return address; }
+        public void setAddress(String address) { this.address = address; }
+    }
+}
